@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include<conio.h>
+#include <windows.h>
 
 #define true 1
 #define false 0
@@ -51,7 +51,7 @@ int numOfday(month,year){
 	}
 }
 
-int dayOfweek(int day,int month,int year){
+int dayOfweek(day,month,year){
 	static int t[] = { 0, 3, 2, 5, 0, 3,
                     5, 1, 4, 6, 2, 4 };
     year -= month < 3;
@@ -64,41 +64,80 @@ int dayOfweek(int day,int month,int year){
 
 int main (void){
 	int day, month, year;
+	char monthArr[12][9] = {"January","Febuary","March","April","May","June","July","August","September","October","November","December"};
 	int i;
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD saved_attributes;
+
+    /* Save current attributes */
+    GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+    saved_attributes = consoleInfo.wAttributes;
+    
+    
 	while(true){
-		system("COLOR 0B");
+  		
 		printf("Please enter a day, month, year format in dd-mm-yyyy. \n");
-		scanf("%d-%d-%d",&day,&month,&year);
+		scanf("\t%d-%d-%d",&day,&month,&year);
 		
 		if(year > 4902 || year < 1600){
+			SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
 			printf("Invalid year value. \n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
 			continue;
 		} 	
 			
 		if (month > 12 || month <1){
+			SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
 			printf("Invalid month value. \n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
 			continue;
 		} 
 		
 		if(day<1 || day > numOfday(month,year)){
+			SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
 			printf("invalid day value. \n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
 			continue;
 		}
 		
 		break;
 	}
 	
-	printf("\n\t%s\t%d",month,year);
-	printf("\n\tMON\tTUE\tWED\tTHU\tFRI\tSAT\tSUN	\n");
+	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+	printf("\n\t\t\t%s\t%d\n",monthArr[month-1],year);
+	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
+	printf("\n\tSUN\tMON\tTUE\tWED\tTHU\tFRI\tSAT	\n\n");
 	
-	for(i=0; i<numOfday(month,year); i++){
+	SetConsoleTextAttribute(hConsole, saved_attributes);
+
+	int startDay = dayOfweek(1,month,year);
+	
+	for(i=0; i<numOfday(month,year)+6; i++){
 		
-			printf("\t%2d ",i+1);
-			
-			if((i+1)%7==0){
-				printf("\n");
+		if(i<startDay){
+			printf("\t ");
+		}else{
+			if(i-startDay+1 == day){
+				printf("\t");
+				SetConsoleTextAttribute(hConsole, BACKGROUND_RED);
+				printf("%2d ",i-startDay+1);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+			}else{
+				printf("\t%2d ",i-startDay+1);
 			}
+
+			
+		}
+			
+		if((i+1)%7==0){
+			printf("\n");
+		}
+		
+		
 	}
+	
+	
 					
 }
 
