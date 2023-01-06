@@ -137,8 +137,12 @@ int main (void){
 		
 	}
 	
-	
-					
+	printf("\n\n");
+	printf("\t\t<> Use Left & Right Arrow Switch Month \n");
+	printf("\t\t<> Use Up & Dowm Arrow Switch Year \n");
+	printf("\t\t<> Press I For Enter New Date\n");
+	printf("\t\t<> Press P For Print to File\n");
+	printf("\t\t<> Press ESC for Exit\n");		
 }
 
 
