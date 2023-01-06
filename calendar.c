@@ -1,9 +1,11 @@
 #include <stdio.h>
+#include<conio.h>
 
 #define true 1
 #define false 0
 
 int numOfday(month,year){
+	
 	switch(month){
 	case 1:
 		return (31);
@@ -64,6 +66,7 @@ int main (void){
 	int day, month, year;
 	int i;
 	while(true){
+		system("COLOR 0B");
 		printf("Please enter a day, month, year format in dd-mm-yyyy. \n");
 		scanf("%d-%d-%d",&day,&month,&year);
 		
@@ -85,6 +88,7 @@ int main (void){
 		break;
 	}
 	
+	printf("\n\t%s\t%d",month,year);
 	printf("\n\tMON\tTUE\tWED\tTHU\tFRI\tSAT\tSUN	\n");
 	
 	for(i=0; i<numOfday(month,year); i++){
