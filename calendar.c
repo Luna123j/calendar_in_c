@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define true 1
+#define false 0
 
 int numOfday(month,year){
 	switch(month){
@@ -12,7 +14,7 @@ int numOfday(month,year){
 			break;
 		}else{
 			return (28);
-					break;
+			break;
 		}
 	case 3:
 		return (31);
@@ -47,10 +49,21 @@ int numOfday(month,year){
 	}
 }
 
+int dayOfweek(int day,int month,int year){
+	static int t[] = { 0, 3, 2, 5, 0, 3,
+                    5, 1, 4, 6, 2, 4 };
+    year -= month < 3;
+    return (year + year / 4
+            - year / 100
+            + year / 400
+            + t[month - 1] + day)
+        % 7;
+}
+
 int main (void){
 	int day, month, year;
-	
-	while(1){
+	int i;
+	while(true){
 		printf("Please enter a day, month, year format in dd-mm-yyyy. \n");
 		scanf("%d-%d-%d",&day,&month,&year);
 		
@@ -64,8 +77,6 @@ int main (void){
 			continue;
 		} 
 		
-
-		
 		if(day<1 || day > numOfday(month,year)){
 			printf("invalid day value. \n");
 			continue;
@@ -74,7 +85,18 @@ int main (void){
 		break;
 	}
 	
+	printf("\n\tMON\tTUE\tWED\tTHU\tFRI\tSAT\tSUN	\n");
 	
-				
+	for(i=0; i<numOfday(month,year); i++){
+		
+			printf("\t%2d ",i+1);
+			
+			if((i+1)%7==0){
+				printf("\n");
+			}
+	}
+					
 }
+
+
 
