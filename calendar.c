@@ -68,7 +68,6 @@ int dayOfweek(day,month,year){
 void getCalendar(day,month,year,saved_attributes){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    
 	int startDay = dayOfweek(1,month,year);
 	int i;
 	
@@ -104,7 +103,7 @@ void saveFile(day,month,year){
 int main (void){
 
 	int day, month, year;
-	char monthArr[12][9] = {"January","Febuary","March","April","May","June","July","August","September","October","November","December"};
+	char monthArr[12][10] = {"January","Febuary","March","April","May","June","July","August","September","October","November","December"};
 	int i;
 	int ch, ch2;
 
@@ -150,6 +149,7 @@ int main (void){
 	
 
     do{
+		system("cls");
 
 		SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 		printf("\n\t\t\t%s\t%d\n",monthArr[month-1],year);
