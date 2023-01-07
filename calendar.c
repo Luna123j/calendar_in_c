@@ -97,6 +97,9 @@ void getCalendar(day,month,year,saved_attributes){
 	}
 }
 
+void saveFile(day,month,year){
+	
+}
 	
 int main (void){
 
@@ -115,6 +118,7 @@ int main (void){
     saved_attributes = consoleInfo.wAttributes;
     
     TOP:
+    system("cls");
 	while(true){
   		
 		printf("Please enter a day, month, year format in dd-mm-yyyy. \n");
@@ -173,19 +177,15 @@ int main (void){
 
             switch(ch){
             case 72: 
-				printf("UP ARROW KEY PRESSED\n");
       			year++;
       			break;
   			case 80: 
-				printf("DOWN ARROW KEY PRESSED\n");
 				year--;
       			break;
    			case 75: 
-				printf("LEFT ARROW KEY PRESSED\n");
 				month--;
       			break;
    			case 77: 
-				printf("RIGHT ARROW KEY PRESSED\n");
 				month++;
       			break;
 			case 105:
@@ -195,8 +195,6 @@ int main (void){
 			default:
 				break;
 			}
-           	
-            printf("You have entered : %d, %d\n", ch);
         }
     	
 	}while(ch!=27);
