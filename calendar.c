@@ -97,13 +97,14 @@ void getCalendar(day,month,year,saved_attributes){
 	}
 }
 
-
+	
 int main (void){
 
 	int day, month, year;
 	char monthArr[12][9] = {"January","Febuary","March","April","May","June","July","August","September","October","November","December"};
 	int i;
 	int ch, ch2;
+
 	
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
@@ -113,6 +114,7 @@ int main (void){
     GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
     saved_attributes = consoleInfo.wAttributes;
     
+    TOP:
 	while(true){
   		
 		printf("Please enter a day, month, year format in dd-mm-yyyy. \n");
@@ -168,30 +170,33 @@ int main (void){
         if (kbhit) {
             // fetch typed character into ch
             ch = getch();
-  
-//            if(ch = 0xE0){
-//            	ch2 = getch();
-            	switch(ch){
-            	case 72: 
-					printf("UP ARROW KEY PRESSED\n");
-      				year++;
-      				break;
-  				case 80: 
-				    printf("DOWN ARROW KEY PRESSED\n");
-				    year--;
-      				break;
-   				case 75: 
-				    printf("LEFT ARROW KEY PRESSED\n");
-				    month--;
-      				break;
-   				case 77: 
-				    printf("RIGHT ARROW KEY PRESSED\n");
-				    month++;
-      				break;
-				}
-//			}
-//            	
-            printf("You have entered : %d, %d\n", ch,ch2);
+
+            switch(ch){
+            case 72: 
+				printf("UP ARROW KEY PRESSED\n");
+      			year++;
+      			break;
+  			case 80: 
+				printf("DOWN ARROW KEY PRESSED\n");
+				year--;
+      			break;
+   			case 75: 
+				printf("LEFT ARROW KEY PRESSED\n");
+				month--;
+      			break;
+   			case 77: 
+				printf("RIGHT ARROW KEY PRESSED\n");
+				month++;
+      			break;
+			case 105:
+				goto TOP;
+				break;
+//      		case 112:
+			default:
+				break;
+			}
+           	
+            printf("You have entered : %d, %d\n", ch);
         }
     	
 	}while(ch!=27);
