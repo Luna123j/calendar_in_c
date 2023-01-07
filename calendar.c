@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
+#include <conio.h>
+
 
 #define true 1
 #define false 0
@@ -62,10 +64,47 @@ int dayOfweek(day,month,year){
         % 7;
 }
 
+
+void getCalendar(day,month,year,saved_attributes){
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    
+	int startDay = dayOfweek(1,month,year);
+	int i;
+	
+	for(i=0; i<numOfday(month,year)+6; i++){
+		
+		if(i<startDay){
+			printf("\t ");
+		}else{
+			if(i-startDay+1 == day){
+				printf("\t");
+				SetConsoleTextAttribute(hConsole, BACKGROUND_RED);
+				printf("%2d ",i-startDay+1);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+			}else{
+				printf("\t%2d ",i-startDay+1);
+			}
+
+			
+		}
+			
+		if((i+1)%7==0){
+			printf("\n");
+		}
+		
+		
+	}
+}
+
+
 int main (void){
+
 	int day, month, year;
 	char monthArr[12][9] = {"January","Febuary","March","April","May","June","July","August","September","October","November","December"};
 	int i;
+	int ch, ch2;
+	
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
 	WORD saved_attributes;
@@ -73,7 +112,6 @@ int main (void){
     /* Save current attributes */
     GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
     saved_attributes = consoleInfo.wAttributes;
-    
     
 	while(true){
   		
@@ -104,48 +142,59 @@ int main (void){
 		break;
 	}
 	
-	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-	printf("\n\t\t\t%s\t%d\n",monthArr[month-1],year);
-	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
-	printf("\n\tSUN\tMON\tTUE\tWED\tTHU\tFRI\tSAT	\n\n");
-	
-	SetConsoleTextAttribute(hConsole, saved_attributes);
 
-	int startDay = dayOfweek(1,month,year);
-	
-	for(i=0; i<numOfday(month,year)+6; i++){
-		
-		if(i<startDay){
-			printf("\t ");
-		}else{
-			if(i-startDay+1 == day){
-				printf("\t");
-				SetConsoleTextAttribute(hConsole, BACKGROUND_RED);
-				printf("%2d ",i-startDay+1);
-				SetConsoleTextAttribute(hConsole, saved_attributes);
-			}else{
-				printf("\t%2d ",i-startDay+1);
-			}
+    do{
 
-			
-		}
-			
-		if((i+1)%7==0){
-			printf("\n");
-		}
-		
-		
-	}
+		SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+		printf("\n\t\t\t%s\t%d\n",monthArr[month-1],year);
 	
-	SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE| FOREGROUND_INTENSITY);
-	printf("\n\n");
-	printf("\t\t\x1B Use Left & Right Arrow Switch Month \n");
-	printf("\t\t\x1b Use Up & Dowm Arrow Switch Year \n");
-	printf("\t\t\x1b Press I For Enter New Date\n");
-	printf("\t\t\x1b Press P For Print to File\n");
-	printf("\t\t\x1b Press ESC for Exit\n");	
+		SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
+		printf("\n\tSUN\tMON\tTUE\tWED\tTHU\tFRI\tSAT	\n\n");
 	
-	SetConsoleTextAttribute(hConsole, saved_attributes);
+		SetConsoleTextAttribute(hConsole, saved_attributes);
+
+		getCalendar(day,month,year,saved_attributes);
+		
+		SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE| FOREGROUND_INTENSITY);
+		printf("\n\n");
+		printf("\t\t\x1B Use Left & Right Arrow Switch Month \n");
+		printf("\t\t\x1b Use Up & Dowm Arrow Switch Year \n");
+		printf("\t\t\x1b Press I For Enter New Date\n");
+		printf("\t\t\x1b Press P For Print to File\n");
+		printf("\t\t\x1b Press ESC for Exit\n");	
+		SetConsoleTextAttribute(hConsole, saved_attributes);
+	
+	
+        if (kbhit) {
+            // fetch typed character into ch
+            ch = getch();
+  
+//            if(ch = 0xE0){
+//            	ch2 = getch();
+            	switch(ch){
+            	case 72: 
+					printf("UP ARROW KEY PRESSED\n");
+      				year++;
+      				break;
+  				case 80: 
+				    printf("DOWN ARROW KEY PRESSED\n");
+				    year--;
+      				break;
+   				case 75: 
+				    printf("LEFT ARROW KEY PRESSED\n");
+				    month--;
+      				break;
+   				case 77: 
+				    printf("RIGHT ARROW KEY PRESSED\n");
+				    month++;
+      				break;
+				}
+//			}
+//            	
+            printf("You have entered : %d, %d\n", ch,ch2);
+        }
+    	
+	}while(ch!=27);
 	
 }
 
