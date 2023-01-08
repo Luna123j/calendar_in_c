@@ -6,6 +6,8 @@
 #define true 1
 #define false 0
 
+
+//return number of days for each month
 int numOfday(month,year){
 	
 	switch(month){
@@ -53,6 +55,8 @@ int numOfday(month,year){
 	}
 }
 
+
+//decide which day of week the month start
 int dayOfweek(day,month,year){
 	static int t[] = { 0, 3, 2, 5, 0, 3,
                     5, 1, 4, 6, 2, 4 };
@@ -65,6 +69,7 @@ int dayOfweek(day,month,year){
 }
 
 
+//print calendar in output terminal
 void getCalendar(day,month,year,saved_attributes){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -96,6 +101,7 @@ void getCalendar(day,month,year,saved_attributes){
 	}
 }
 
+//save calender into txt file
 void saveFile(day,month,year){
 	char fileName[15];
 	char monthArr[12][10] = {"January","Febuary","March","April","May","June","July","August","September","October","November","December"};
@@ -127,7 +133,9 @@ void saveFile(day,month,year){
 	}
    fclose(fp);
 }
-	
+
+
+
 int main (void){
 
 	int day, month, year;
@@ -135,17 +143,19 @@ int main (void){
 	int i;
 	int ch, ch2;
 
-	
+	//to change terminal text color
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
 	WORD saved_attributes;
 
-    /* Save current attributes */
+    //Save current text attributes
     GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
     saved_attributes = consoleInfo.wAttributes;
     
+    
     TOP:
-    system("cls");
+    system("cls"); //clear screen
+    
 	while(true){
   		
 		printf("Please enter a day, month, year format in dd-mm-yyyy. \n");
@@ -200,8 +210,8 @@ int main (void){
 	
 	
         if (kbhit) {
-            // fetch typed character into ch
-            ch = getch();
+            
+            ch = getch(); // fetch typed character into ch
 
             switch(ch){
             case 72: 
