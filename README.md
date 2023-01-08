@@ -4,5 +4,5 @@
 
 ## DEMO
 
-!["DEMO GIF"](https://github.com/Luna123j/calendar_in_c/blob/master/DEMO.gif)
+!["DEMO GIF"](https://github.com/Luna123j/calendar_in_c/blob/master/demo.gif)
 
