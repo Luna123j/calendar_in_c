@@ -1,6 +1,6 @@
-## Calendar project in C 
+## Calendar Project Using C Language
 
-### An Calendar allows user track date in any year and save monthly calendar to file. 
+### A Calendar allows user track date in any year and save monthly calendar to file. 
 
 ## DEMO
 
