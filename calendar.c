@@ -71,7 +71,7 @@ void getCalendar(day,month,year,saved_attributes){
 	int startDay = dayOfweek(1,month,year);
 	int i;
 	
-	for(i=0; i<numOfday(month,year)+6; i++){
+	for(i=0; i<numOfday(month,year)+startDay; i++){
 		
 		if(i<startDay){
 			printf("\t ");
@@ -111,7 +111,7 @@ void saveFile(day,month,year){
     int startDay = dayOfweek(1,month,year);
 	int i;
 	
-	for(i=0; i<numOfday(month,year)+6; i++){
+	for(i=0; i<numOfday(month,year)+startDay; i++){
 		
 		if(i<startDay){
 			fprintf(fp,"\t ");
