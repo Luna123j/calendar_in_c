@@ -97,14 +97,17 @@ void getCalendar(day,month,year,saved_attributes){
 }
 
 void saveFile(day,month,year){
-	char fileName ;
+	char fileName[15];
 	char monthArr[12][10] = {"January","Febuary","March","April","May","June","July","August","September","October","November","December"};
-
 	FILE *fp;
-	fp = fopen("myfile", "w+");
-    fprintf(fp, "Calender\n");
+	
+	sprintf(fileName, "%d_%d.txt", month,year);
+	
+	fp = fopen(fileName, "w+");
     fprintf(fp,"\n\t\t\t%s\t%d\n",monthArr[month-1],year);
     fprintf(fp,"\n\tSUN\tMON\tTUE\tWED\tTHU\tFRI\tSAT	\n\n");
+    
+    
     int startDay = dayOfweek(1,month,year);
 	int i;
 	
