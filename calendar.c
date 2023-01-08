@@ -97,11 +97,31 @@ void getCalendar(day,month,year,saved_attributes){
 }
 
 void saveFile(day,month,year){
-	char fileName;
+	char fileName ;
+	char monthArr[12][10] = {"January","Febuary","March","April","May","June","July","August","September","October","November","December"};
+
 	FILE *fp;
-//	fp = fopen(fileName, "w+");
-   fprintf(fp, "This is testing for fprintf...\n");
-   fputs("This is testing for fputs...\n", fp);
+	fp = fopen("myfile", "w+");
+    fprintf(fp, "Calender\n");
+    fprintf(fp,"\n\t\t\t%s\t%d\n",monthArr[month-1],year);
+    fprintf(fp,"\n\tSUN\tMON\tTUE\tWED\tTHU\tFRI\tSAT	\n\n");
+    int startDay = dayOfweek(1,month,year);
+	int i;
+	
+	for(i=0; i<numOfday(month,year)+6; i++){
+		
+		if(i<startDay){
+			fprintf(fp,"\t ");
+		}else{
+
+			fprintf(fp,"\t%2d ",i-startDay+1);
+		}
+			
+		if((i+1)%7==0){
+			fprintf(fp,"\n");
+		}
+		
+	}
    fclose(fp);
 }
 	
@@ -203,7 +223,7 @@ int main (void){
 				goto TOP;
 				break;
       		case 112:
-      			saveFile();
+      			saveFile(day,month,year);
       			break;
 			default:
 				break;
