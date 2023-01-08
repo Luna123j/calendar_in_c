@@ -97,7 +97,12 @@ void getCalendar(day,month,year,saved_attributes){
 }
 
 void saveFile(day,month,year){
-	
+	char fileName;
+	FILE *fp;
+//	fp = fopen(fileName, "w+");
+   fprintf(fp, "This is testing for fprintf...\n");
+   fputs("This is testing for fputs...\n", fp);
+   fclose(fp);
 }
 	
 int main (void){
@@ -184,14 +189,22 @@ int main (void){
       			break;
    			case 75: 
 				month--;
+				if (month<1){
+					month=12;
+				}
       			break;
    			case 77: 
 				month++;
+				if(month>12){
+					month=1;
+				}
       			break;
 			case 105:
 				goto TOP;
 				break;
-//      		case 112:
+      		case 112:
+      			saveFile();
+      			break;
 			default:
 				break;
 			}
